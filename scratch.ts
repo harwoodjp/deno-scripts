@@ -4,10 +4,15 @@ import {
   ensureFileSync,
 } from "https://deno.land/std/fs/mod.ts";
 
-const editor: string = "/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
-const folder: string = "/Users/justin/Volumes/MEGA/Documents/scratch/"
+const editor: string = Deno.env.get("scratch_editor").replace(`\f`, "")
+const folder: string = Deno.env.get("scratch_folder")
+const timeZone: string = Deno.env.get("scratch_timezone")
 const extension: string = Deno.args[0] || "txt"
-const timeZone: string = "America/Chicago"
+
+console.log({
+	editor,
+	editor2
+})
 
 const today = (): string => {
 	const dateParts: string[] = new Date()
