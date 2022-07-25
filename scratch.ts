@@ -19,16 +19,22 @@ const today = (): string => {
 	return `${dateParts[2]}-${dateParts[0]}-${dateParts[1]}`	
 }
 
-const file: string = `${folder}${today()}.${extension}`
-
-exists(file) 
-	.then(async (result : boolean) => {
-		if (!result)
-			await ensureFile(file)
-	})
-	.then(async () => {
-			const cmd = [editor, file]
-			const p = await Deno.run({ cmd })
-			await p.status()		
-	})
-	.then(() => console.log(file))
+if (extension == "/") {
+	const cmd = [editor, folder]
+	const p = await Deno.run({ cmd })
+	await p.status()
+} else {
+	const file: string = `${folder}${today()}.${extension}`
+	
+	exists(file) 
+		.then(async (result : boolean) => {
+			if (!result)
+				await ensureFile(file)
+		})
+		.then(async () => {
+				const cmd = [editor, file]
+				const p = await Deno.run({ cmd })
+				await p.status()		
+		})
+		.then(() => console.log(file))
+}
